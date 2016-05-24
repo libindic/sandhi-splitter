@@ -3,17 +3,17 @@ class TrieNode:
         self.character = character
         self.c_nsp = 0
         self.c_sp = 0
-        self.next = {};
+        self.next = {}
 
 
 class Trie:
     def __init__(self):
-        self.root = TrieNode('^');
-        self.end = TrieNode('$');
+        self.root = TrieNode('^')
+        self.end = TrieNode('$')
 
     def update_node(self, node, word):
         if not word:
-            node.next['$'] = self.end;
+            node.next['$'] = self.end
             node.c_sp += 1
         else:
             #print("Adding %s"%(word))
@@ -49,23 +49,37 @@ class Trie:
             if head not in node.next.keys():
                 return 0
             node = node.next[head]
-        return (node.c_sp/(node.c_sp + node.c_nsp));
+        return (node.c_sp/(node.c_sp + node.c_nsp))
 
 
     def P_nsp(word):
-        return 1 - P_sp(word);
+        return 1 - P_sp(word)
+
+    def serialize_node(self, node):
+        if node == self.end:
+            return '$'
+        serialized = {
+                "c_sp": node.c_sp,
+                "c_nsp": node.c_nsp,
+                "next" :{}
+        };
+        for child in node.next.keys():
+            serialized["next"][child] = self.serialize_node(node.next[child])
+        return serialized;
+    
+    def serialize(self):
+        return self.serialize_node(self.root);
 
 
-
-if __name__ == '__main__':
+if __name__=='__main__':
     x = Trie()
     x.add_word("Hello")
     x.add_word("He")
     x.add_word("Hell")
-    x.add_word("What the fuck")
     x.add_word("Howareya?")
     x.add_word("How do you do?")
     print(x.P_sp("Hello"))
     print(x.P_sp("He"))
     print(x.P_sp("Hwll"))
     x.debug()
+    print(x.serialize())
