@@ -4,6 +4,7 @@ Code to train the model using dataset
 
 from trie import Trie
 import sys
+import json
 
 def usage():
     string = "%s <datafile>"%(sys.argv[0])

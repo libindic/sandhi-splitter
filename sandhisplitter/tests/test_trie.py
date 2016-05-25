@@ -1,19 +1,21 @@
 from testtools import TestCase
-from testtools.content import Content
-from testtools.content_type import UTF8_TEXT
-import trie
+from sandhisplitter.trie import Trie
 
 class TestTrie(TestCase):
     def setUp(self):
         super(TestTrie, self).setUp()
-        self.testTrie = trie.Trie()
+        self.testTrie = Trie()
 
     def dfs(self, node, prefix, output):
-        if node == self.Trie.end:
+        if node == self.testTrie.end:
             output.append(prefix)
         for key in node.next.keys():
             prefix2 = prefix + node.next[key].character
-            self.dfs(node.next[key], prefix2)
+            self.dfs(node.next[key], prefix2, output)
+    def all_words(self):
+        output = []
+        self.dfs(self.testTrie.root, '', output)
+        return output
 
     def debug(self):
         output = []
@@ -37,4 +39,10 @@ class TestTrie(TestCase):
         self.testTrie.add_word('hello')
         self.assertEqual(self.contains('hello'), True)
         self.assertEqual(self.contains('hell'), False)
+        self.assertEqual(len(self.all_words()), 1)
+        self.testTrie.add_word('temporary')
+        self.assertEqual(len(self.all_words()), 2)
+        self.testTrie.add_word('hell')
+        self.assertEqual(len(self.all_words()), 3)
+        self.assertEqual(self.contains('hell'), True)
 
