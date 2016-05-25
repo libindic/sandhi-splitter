@@ -23,19 +23,7 @@ class Trie:
             self.update_node(node.next[head], tail)
             node.c_nsp += 1
 
-    def dfs(self, node, prefix):
-        if node == self.end:
-            print(prefix)
-        for key in node.next.keys():
-            prefix2 = prefix + node.next[key].character
-            self.dfs(node.next[key], prefix2)
-
-    def debug(self):
-        self.dfs(self.root, '')
-
-
     def add_word(self, word):
-        #print("Adding %s"%(word))
         wordList = list(word)
         self.update_node(self.root, word)
 
@@ -56,9 +44,11 @@ class Trie:
         return 1 - P_sp(word)
 
     def serialize_node(self, node):
+        """ Serialize the tree rooted at node """
         if node == self.end:
             return '$'
         serialized = {
+                "character": node.character,
                 "c_sp": node.c_sp,
                 "c_nsp": node.c_nsp,
                 "next" :{}
@@ -68,18 +58,7 @@ class Trie:
         return serialized;
     
     def serialize(self):
+        """ Wrapper to make things neat """
         return self.serialize_node(self.root);
 
 
-if __name__=='__main__':
-    x = Trie()
-    x.add_word("Hello")
-    x.add_word("He")
-    x.add_word("Hell")
-    x.add_word("Howareya?")
-    x.add_word("How do you do?")
-    print(x.P_sp("Hello"))
-    print(x.P_sp("He"))
-    print(x.P_sp("Hwll"))
-    x.debug()
-    print(x.serialize())

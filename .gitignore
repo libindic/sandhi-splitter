@@ -64,3 +64,4 @@ target/
 
 # Specific
 *.session
+sandbox/

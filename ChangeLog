@@ -1,0 +1,14 @@
+CHANGES
+=======
+
+* Serialization of trie to store model
+* Reorganization Moved annotation-helper, added new directory structure
+* Export and Reorganizing Offers serialized data for dump. Malayalam specific rules in helper.js split into separate file
+* Minor readme modifications
+* More improvements Instructions on howto use annotation tool, README added
+* Experiments with splitting
+* Rule Based Transforms Skeleton workflow features now available. Rule based transforms added
+* Cleanup, rewrite
+* Editor added
+* Flask app
+* Initial commit
