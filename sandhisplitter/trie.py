@@ -16,7 +16,6 @@ class Trie:
             node.next['$'] = self.end
             node.c_sp += 1
         else:
-            #print("Adding %s"%(word))
             head, *tail = word
             if head not in node.next.keys():
                 node.next[head] = TrieNode(head)
@@ -39,7 +38,6 @@ class Trie:
             node = node.next[head]
         return (node.c_sp/(node.c_sp + node.c_nsp))
 
-
     def P_nsp(word):
         return 1 - P_sp(word)
 
@@ -51,14 +49,12 @@ class Trie:
                 "character": node.character,
                 "c_sp": node.c_sp,
                 "c_nsp": node.c_nsp,
-                "next" :{}
-        };
+                "next": {}
+        }
         for child in node.next.keys():
             serialized["next"][child] = self.serialize_node(node.next[child])
-        return serialized;
-    
+        return serialized
+
     def serialize(self):
         """ Wrapper to make things neat """
-        return self.serialize_node(self.root);
-
-
+        return self.serialize_node(self.root)
