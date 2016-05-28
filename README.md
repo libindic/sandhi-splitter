@@ -11,9 +11,19 @@ although codes used are mostly language agnostic.
 # Training
 
 # Using Module
-## Installation
-Use sudo if necessary.
-```python
-python setup.py install
+
+1. First clone the repository
 ```
+	git clone https://github.com/libindic/sandhi-splitter.git
+```
+2. Create a installable source and then install using pip
+```
+	python setup.py sdist
+	pip install dist/sandhisplitter*.tar.gz
+```
+
+Note: We suggest you work on virtualenv instead of installing
+system-wide using `sudo`, since module is still under development.
+
+
 
