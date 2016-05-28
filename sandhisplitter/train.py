@@ -2,9 +2,7 @@
 Code to train the model using dataset
 """
 
-from sandhisplitter.trie import Trie
 import sys
-import json
 
 
 def usage():
