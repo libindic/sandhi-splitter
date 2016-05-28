@@ -1,0 +1,3 @@
+testtools
+pbr
+setuptools
