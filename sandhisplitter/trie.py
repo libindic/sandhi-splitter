@@ -1,3 +1,5 @@
+from sandhisplitter.util import head_tail
+
 class TrieNode:
     def __init__(self, character):
         self.character = character
@@ -16,7 +18,8 @@ class Trie:
             node.next['$'] = self.end
             node.c_sp += 1
         else:
-            head, *tail = word
+            #head, *tail = word
+            head, tail = head_tail(word)
             if head not in node.next.keys():
                 node.next[head] = TrieNode(head)
             self.update_node(node.next[head], tail)
@@ -31,7 +34,8 @@ class Trie:
         wordList = list(word)
         node = self.root
         while(wordList):
-            head, *tail = wordList
+            #head, *tail = wordList
+            head, tail =  head_tail(wordList)
             wordList = tail
             if head not in node.next.keys():
                 return 0
@@ -39,7 +43,7 @@ class Trie:
         return (node.c_sp/(node.c_sp + node.c_nsp))
 
     def P_nsp(word):
-        return 1 - P_sp(word)
+        return 1 - self.P_sp(word)
 
     def serialize_node(self, node):
         """ Serialize the tree rooted at node """
