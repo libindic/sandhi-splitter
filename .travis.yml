@@ -1,14 +1,18 @@
 language: python
 python:
+  - "2.7"
   - "3.3"
+  - "3.4"
+  - "3.5-dev"
 install:
   - pip install -r requirements.txt
+  - pip install -r test-requirements.txt
 script: make travis
-#after_success: coveralls
+after_success: coveralls
 notifications:
-  email: monu1618@gmail.com
+  email: silpa-discuss@nongnu.org
   irc:
     channels:
-    on_success: change
-    on_failure: change
+    on_success: #silpa
+    on_failure: #silpa
     use_notice: true
