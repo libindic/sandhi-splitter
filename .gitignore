@@ -65,3 +65,5 @@ target/
 # Specific
 *.session
 sandbox/
+/cover/
+/.testrepository/
