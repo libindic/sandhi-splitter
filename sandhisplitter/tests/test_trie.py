@@ -1,4 +1,5 @@
 from testtools import TestCase
+from sandhisplitter.util import head_tail
 from sandhisplitter.trie import Trie
 
 
@@ -28,7 +29,7 @@ class TestTrie(TestCase):
     def contains_substr(self, node, word):
         if not word:
             return '$' in node.next.keys()
-        head, *tail = word
+        head, tail = head_tail(word)
         if head not in node.next.keys():
             return False
         return self.contains_substr(node.next[head], tail)
