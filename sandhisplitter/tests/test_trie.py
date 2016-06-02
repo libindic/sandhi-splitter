@@ -47,3 +47,22 @@ class TestTrie(TestCase):
         self.testTrie.add_word('hell')
         self.assertEqual(len(self.all_words()), 3)
         self.assertEqual(self.contains('hell'), True)
+
+    def test_P_sp(self):
+        self.testTrie.add_word('thisistest')
+        self.assertEqual(self.testTrie.P_sp('hello'), 0)
+        self.assertEqual(self.testTrie.P_sp('hellow'), 0)
+        self.assertEqual(self.testTrie.P_sp('thisistest'), 1)
+        self.assertEqual(self.testTrie.P_nsp('thisi'), 1)
+        self.testTrie.add_word('thisistest2')
+        self.assertEqual(self.testTrie.P_sp('thisistest'), 0.5)
+
+    def test_serialize(self):
+        self.testTrie.add_word('thisistest')
+        self.testTrie.add_word('thisistest2')
+        self.testTrie.add_word('hello')
+
+    def test_smoothed_probability(self):
+        words = ['hell', 'he', 'hello', 'helsinki']
+        for word in words:
+            self.testTrie.add_word(word)

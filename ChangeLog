@@ -1,6 +1,26 @@
 CHANGES
 =======
 
+* Improvements
+* Stash
+* Model separated, better suited for testing. Added tox
+* Fixed travis build fail. PEP-8 corrections, py2.7 support
+* Fix failing build, added python2.7
+* Update README.md
+* fix script of .travis.yml
+* Fix my email Id
+* Fix travis build configuration
+* Add travis and coverall badges
+* Wrap README.md to 80 characters
+* Ignore unwanted test files
+* Add testrepository configuration
+* Add test-requirements.txt
+* Package name for now is sandhisplitter
+* Cleaned up setup.py
+* Fix the import statement
+* Fix the requirements.txt
+* Fix the test command and add flake8 check
+* Travis enabled. Travis added
 * Sandhi Splitter now a module. Codes PEP-8 compliant
 * pbr + testtools working now, added Makefile
 * Tests, pbr Added Tests for first module. Rebased many commits onto a single one

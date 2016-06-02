@@ -3,6 +3,9 @@ Code to train the model using dataset
 """
 
 import sys
+from sandhisplitter.model import Model
+from sandhisplitter.util import extract
+import json
 
 
 def usage():
@@ -10,31 +13,44 @@ def usage():
     out = "Usage:\n" + string
     return out
 
-
-def extract(line):
-    """Function to separate elements from string"""
-    # No, not writing regexes.
-    word, rest = line.split('=')
-    # Split String, Location String
-    ssplits, slocs = rest.split('|')
-    splits = ssplits.split('+')
-    locs = map(int, slocs.split(','))
-    return (word, splits, locs)
-
-try:
-    data = open(sys.argv[1], 'r', encoding='utf-8')
-    line_number = 0
+if __name__ == '__main__':
     try:
-        for line in data:
-            line_number += 1
-            word, splits, locs = extract(line)
-    except:
-        print("Input file syntax error in line %d" % (line_number))
+        data = open(sys.argv[1], 'r', encoding='utf-8')
+        line_number = 0
+        M = Model(int(sys.argv[3]), int(sys.argv[4]))
+        try:
+            for line in data:
+                line_number += 1
+                word, splits, locs = extract(line)
+                M.add_entry(word, splits, locs)
+        except:
+            print("Input file syntax error in line %d" % (line_number))
+            raise
 
-except IndexError:
-    print("Please specify input file.")
-    print(usage())
+        with open("model.json", "w", encoding='utf-8') as fp:
+            json.dump(M.serialize(), fp)
 
-except IOError:
-    print("File not found")
-    print(usage())
+        testdata = open(sys.argv[2], 'r', encoding='utf-8')
+        output = open('output', 'w', encoding='utf-8')
+        for line in testdata:
+            line = line.strip()
+            line_orig = line
+            sps = M.probable_splits(line)
+            splits = []
+            prev = 0
+            for sp in sps:
+                splits.append(line[prev:sp])
+                prev = sp
+            splits.append(line[prev:])
+            outstring = line_orig + '='
+            outstring += '+'.join(splits) + '|'
+            outstring += ','.join(map(str, sps))
+            output.write(outstring + '\n')
+
+    except IndexError:
+        print("Please specify input file.")
+        print(usage())
+
+    except IOError:
+        print("File not found")
+        print(usage())

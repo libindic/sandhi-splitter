@@ -39,7 +39,10 @@ class Trie:
             if head not in node.next.keys():
                 return 0
             node = node.next[head]
-        return (node.c_sp/(node.c_sp + node.c_nsp))
+        return self.P_node(node)
+
+    def P_node(self, node):
+        return (node.c_sp/(1.0*(node.c_sp + node.c_nsp)))
 
     def P_nsp(self, word):
         return 1 - self.P_sp(word)
@@ -61,3 +64,30 @@ class Trie:
     def serialize(self):
         """ Wrapper to make things neat """
         return self.serialize_node(self.root)
+
+    def smoothed_P_sp(self, word, initial_skip):
+        if not word:
+            return 0.0
+        tail = list(word)
+        node = self.root
+        smoothed, total = 0.0, 0.0
+        counter = 0
+        chars = []
+        ps = []
+        while (tail and node != self.end):
+            head, tail = head_tail(tail)
+            if head not in node.next.keys():
+                break
+            node = node.next[head]
+            counter = counter + 1
+            if counter >= initial_skip:
+                smoothed += self.P_node(node)
+                chars.append(head)
+                ps.append(self.P_node(node))
+                total += 1.0
+
+        print(chars)
+        print(ps)
+        if total == 0.0:
+            return 0
+        return smoothed/total
