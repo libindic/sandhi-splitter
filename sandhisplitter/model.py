@@ -2,27 +2,31 @@ from sandhisplitter.trie import Trie
 
 
 class Model:
-    def __init__(self, k, i):
+    def __init__(self, *args, **kwargs):
+        if "model" in kwargs.keys():
+            self.clean_init(0, 0)
+            self.load(kwargs["model"])
+        elif "depth" in kwargs.keys() and "skip" in kwargs.keys():
+            self.clean_init(kwargs["depth"], kwargs["skip"])
+        else:
+            raise ValueError
+
+    def clean_init(self, k, i):
         self.left = Trie()
         self.right = Trie()
         self.initial_skip = i
         self.k = k
 
     def add_entry(self, word, split, locs):
-        plain_splits = []
-        start = 0
+        flag = [False for i in range(len(word)+10)]
         for i in locs:
-            part = word[start:i+1]
-            plain_splits.append(part)
-            start = i+1
-        part = word[start:len(word)]
-        plain_splits.append(part)
-        for i in range(len(plain_splits)-1):
-            first, second = plain_splits[i:i+2]
+            flag[i] = True
+        for i in range(1, len(word)-2):
+            first, second = word[:i+1], word[i+1:]
             first = self.trim(first[::-1])
             second = self.trim(second)
-            self.left.add_word(first)
-            self.right.add_word(second)
+            self.left.add_word(first, flag[i])
+            self.right.add_word(second, flag[i])
 
     def serialize(self):
         return {
@@ -31,6 +35,12 @@ class Model:
                 "left": self.left.serialize(),
                 "right": self.right.serialize()
                 }
+
+    def load(self, serialized):
+        self.k = serialized["k"]
+        self.initial_skip = serialized["initial_skip"]
+        self.left.load(serialized["left"])
+        self.right.load(serialized["right"])
 
     def probable_splits(self, word):
         ps = []
@@ -43,14 +53,10 @@ class Model:
             print("first: %s, second: %s" % (backwardk, forwardk))
             P_lsp = self.left.smoothed_P_sp(backwardk, self.initial_skip)
             P_rsp = self.right.smoothed_P_sp(forwardk, self.initial_skip)
-            # P_lsp = self.left.P_sp(backwardk)
-            # P_rsp = self.right.P_sp(forwardk)
 
-            print("left: %f, right %f" % (P_lsp, P_rsp))
             print("---")
-            l = (self.k-self.initial_skip)
-            if (l*P_lsp >= 1.0 and l*P_rsp >= 1.0):
-                ps.append(i)
+            if (P_lsp + P_rsp >= 1.0):
+                ps.append(i-1)
         return ps
 
     def trim(self, word):

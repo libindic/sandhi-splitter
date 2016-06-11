@@ -21,18 +21,27 @@ def extract(line):
     return (word, splits, locs)
 
 
-def transliterate(word):
-    vowelT = {
-        'ാ': 'ആ',
-        'ി': 'ഇ',
-        'ീ': 'ഈ',
-        'ു': 'ഉ',
-        'ൂ': 'ഊ',
-        'െ': 'എ',
-        'േ': 'ഏ',
-        'ൈ': 'ഐ',
-        'ൊ': 'ഒ',
-        'ോ': 'ഓ',
-        'ൗ': 'ഔ'
-    }
-    return vowelT
+def split_word_at_locations(word, locs):
+    start = 0
+    plain_splits = []
+    for i in locs:
+        part = word[start:i+1]
+        plain_splits.append(part)
+        start = i+1
+    part = word[start:len(word)]
+    plain_splits.append(part)
+    return plain_splits
+    
+vowelT = {
+	'ാ': 'ആ',
+	'ി': 'ഇ',
+	'ീ': 'ഈ',
+	'ു': 'ഉ',
+	'ൂ': 'ഊ',
+	'െ': 'എ',
+	'േ': 'ഏ',
+	'ൈ': 'ഐ',
+	'ൊ': 'ഒ',
+	'ോ': 'ഓ',
+	'ൗ': 'ഔ'
+}

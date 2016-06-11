@@ -1,6 +1,9 @@
 CHANGES
 =======
 
+* More experiments
+* Waiting optimizations
+* Major changes, split point identification working
 * Improvements
 * Stash
 * Model separated, better suited for testing. Added tox
