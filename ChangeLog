@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* Restructure, Improvements Organized into a neater hierarchy. Cmd arguments for test and train supported
 * More experiments
 * Waiting optimizations
 * Major changes, split point identification working

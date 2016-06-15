@@ -49,12 +49,9 @@ class Model:
             first, second = word[fi:i], word[i:si]
             backwardk = first[::-1]
             forwardk = second
-            print("first: %s, second: %s" % (first, second))
-            print("first: %s, second: %s" % (backwardk, forwardk))
             P_lsp = self.left.smoothed_P_sp(backwardk, self.initial_skip)
             P_rsp = self.right.smoothed_P_sp(forwardk, self.initial_skip)
 
-            print("---")
             if (P_lsp + P_rsp >= 1.0):
                 ps.append(i-1)
         return ps

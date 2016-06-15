@@ -109,12 +109,6 @@ class Trie:
                 ps.append(P)
                 total += counter
 
-        print('---')
-        print(chars)
-        print(ps)
-        print(stats)
-        print('---')
         if total == 0.0:
             return 0
-        print("Final: ", smoothed/total)
         return smoothed/total

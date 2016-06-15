@@ -7,7 +7,7 @@ from sandhisplitter.util import extract
 class TestModel(TestCase):
     def setUp(self):
         super(TestModel, self).setUp()
-        self.testModel = Model(7, 0)
+        self.testModel = Model(depth=3, skip=1)
 
     def test_load(self):
         entries = [

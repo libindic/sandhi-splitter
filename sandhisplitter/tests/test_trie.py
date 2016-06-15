@@ -36,28 +36,3 @@ class TestTrie(TestCase):
 
     def contains(self, word):
         return self.contains_substr(self.testTrie.root, word)
-
-    def test_add_word(self):
-        self.testTrie.add_word('hello', True)
-        self.assertEqual(self.contains('hello'), True)
-        self.assertEqual(self.contains('hell'), False)
-        self.assertEqual(len(self.all_words()), 1)
-        self.testTrie.add_word('temporary', False)
-        self.assertEqual(len(self.all_words()), 2)
-        self.testTrie.add_word('hell', True)
-        self.assertEqual(len(self.all_words()), 3)
-        self.assertEqual(self.contains('hell'), True)
-
-    def test_P_sp(self):
-        self.testTrie.add_word('thisistest', True)
-        self.assertEqual(self.testTrie.P_sp('hello'), 0)
-        self.assertEqual(self.testTrie.P_sp('hellow'), 0)
-        self.assertEqual(self.testTrie.P_sp('thisistest'), 1)
-        self.assertEqual(self.testTrie.P_nsp('thisi'), 1)
-        self.testTrie.add_word('thisistest2', False)
-        self.assertEqual(self.testTrie.P_sp('thisistest'), 0.5)
-
-    def test_serialize(self):
-        self.testTrie.add_word('thisistest', True)
-        self.testTrie.add_word('thisistest2', False)
-        self.testTrie.add_word('hello', True)

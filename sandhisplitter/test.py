@@ -21,7 +21,6 @@ if __name__ == '__main__':
                             required=True, dest=dest)
     args = parser.parse_args()
     model = json.load(args.modelfile)
-    print(model)
     M = Model(model=model)
     P = PostProcessor()
     output = args.split
