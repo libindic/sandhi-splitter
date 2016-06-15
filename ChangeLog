@@ -1,6 +1,8 @@
 CHANGES
 =======
 
+* Fixed Makefile trailing whitespace, moved models into module
+* Improved coverage, added pragma for scripts
 * Improved coverage, wrote more tests
 * Changed log to output
 * Old tests removed. PEP-8 passing for now, debug messages removed

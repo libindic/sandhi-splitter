@@ -1,11 +1,10 @@
 """
 Code to train the model using dataset
 """
-
-from sandhisplitter.model import Model
-from sandhisplitter.util import extract
 import json
 import argparse
+from sandhisplitter.model import Model
+from sandhisplitter.util import extract
 
 if __name__ == '__main__':  # pragma: no cover
     parser = argparse.ArgumentParser(description="Train a model")
