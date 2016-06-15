@@ -3,7 +3,7 @@ import json
 from sandhisplitter.model import Model
 from sandhisplitter.postprocessor import PostProcessor
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     parser = argparse.ArgumentParser(description="Test a model")
     arguments = [
         ["-m", "--modelfile", "path to model file",

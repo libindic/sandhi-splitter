@@ -20,12 +20,6 @@ class TestTrie(TestCase):
         self.dfs(self.testTrie.root, '', output)
         return output
 
-    def debug(self):
-        output = []
-        self.dfs(self.testTrie.root, '', output)
-        for word in output:
-            print(word)
-
     def contains_substr(self, node, word):
         if not word:
             return '$' in node.next.keys()
@@ -36,3 +30,36 @@ class TestTrie(TestCase):
 
     def contains(self, word):
         return self.contains_substr(self.testTrie.root, word)
+
+    def test_word(self):
+        words = ["hello", "what", "hell", "h", "this"]
+        for word in words:
+            self.testTrie.add_word(word, False)
+        for word in words:
+            self.assertEqual(self.contains(word), True)
+
+    def test_export_and_load(self):
+        words = ["hello", "what", "hell", "h", "this"]
+        for word in words:
+            self.testTrie.add_word(word, False)
+        m = self.testTrie.serialize()
+        self.testTrie.load(m)
+        for word in words:
+            self.assertEqual(self.contains(word), True)
+
+    def test_smoothed_psp(self):
+        words = ["hello", "what", "hell", "h", "this"]
+        for word in words:
+            self.testTrie.add_word(word, False)
+        for i in range(6):
+            for word in words:
+                self.assertEqual(self.testTrie.smoothed_P_sp(word, i), 0.0)
+        for word in words:
+            self.testTrie.add_word(word, True)
+        for i in range(6):
+            for word in words:
+                if len(word) <= i:
+                    self.assertEqual(self.testTrie.smoothed_P_sp(word, i), 0.0)
+                else:
+                    self.assertEqual(self.testTrie.smoothed_P_sp(word, i), 0.5)
+        self.assertEqual(self.testTrie.smoothed_P_sp("hi", 0), 0.5)

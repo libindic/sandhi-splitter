@@ -35,23 +35,8 @@ class Trie:
         wordList = list(word)
         self.update_node(self.root, wordList, sp)
 
-    def P_sp(self, word):
-        """Returns probability of word being prefix to split point"""
-        wordList = list(word)
-        node = self.root
-        while(wordList):
-            head, tail = head_tail(wordList)
-            wordList = tail
-            if head not in node.next.keys():
-                return 0
-            node = node.next[head]
-        return self.P_node(node)
-
     def P_node(self, node):
         return (node.c_sp/(1.0*(node.c_sp + node.c_nsp)))
-
-    def P_nsp(self, word):
-        return 1 - self.P_sp(word)
 
     def serialize_node(self, node):
         """ Serialize the tree rooted at node """
@@ -91,10 +76,7 @@ class Trie:
         node = self.root
         smoothed, total = 0.0, 0.0
         counter = 0
-        chars = []
         P = 0
-        ps = []
-        stats = []
         while (tail and node != self.end):
             head, tail = head_tail(tail)
             if head not in node.next.keys():
@@ -103,10 +85,7 @@ class Trie:
             counter = counter + 1
             if counter > initial_skip:
                 P = counter*self.P_node(node)
-                stats.append((node.c_sp, node.c_nsp))
                 smoothed += P
-                chars.append(head)
-                ps.append(P)
                 total += counter
 
         if total == 0.0:

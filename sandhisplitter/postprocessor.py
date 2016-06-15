@@ -9,18 +9,18 @@ class PostProcessor:
 
     def transform(self, first, second):
         # Check if first.last is ya or va
-        if(first[-1] == 'യ' and second[0] in vowelT.keys()):
+        if(first[-1] == u'യ' and second[0] in vowelT.keys()):
             first = first[:-1]
             second = vowelT[second[0]] + second[1:]
-        elif(first[-1] == 'മ' and second[0] in vowelT.keys()):
-            first = first[:-1] + 'ം'
+        elif(first[-1] == u'മ' and second[0] in vowelT.keys()):
+            first = first[:-1] + u'ം'
             second = vowelT[second[0]] + second[1:]
         elif(second[0] in vowelT):
-            first = first + '്'
+            first = first + u'്'
             second = vowelT[second[0]] + second[1:]
         if(len(second) >= 3):
             x, y, z = second[:3]
-            if(x == z and y == '്'):
+            if(x == z and y == u'്'):
                 second = second[2:]
         return (first, second)
 

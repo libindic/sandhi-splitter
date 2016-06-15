@@ -7,7 +7,7 @@ from sandhisplitter.util import extract
 import json
 import argparse
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     parser = argparse.ArgumentParser(description="Train a model")
     arguments = [
         ["-k", "--depth", "depth of the trie", int, "depth"],

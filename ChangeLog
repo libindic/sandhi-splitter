@@ -1,6 +1,9 @@
 CHANGES
 =======
 
+* Improved coverage, wrote more tests
+* Changed log to output
+* Old tests removed. PEP-8 passing for now, debug messages removed
 * Restructure, Improvements Organized into a neater hierarchy. Cmd arguments for test and train supported
 * More experiments
 * Waiting optimizations

@@ -35,3 +35,15 @@ class TestModel(TestCase):
         for line in entries:
             (word, splits, locs) = extract(line)
             self.testModel.add_entry(word, splits, locs)
+        m = self.testModel.serialize()
+        self.testModel.load(m)
+        self.assertEqual(self.testModel.k, 3)
+        self.assertEqual(self.testModel.initial_skip, 1)
+        self.assertEqual(self.testModel.k, m["k"])
+        self.assertEqual(self.testModel.initial_skip, m["initial_skip"])
+        # Test probale splits
+        sample = entries[0]
+        (word, splits, locs) = extract(sample)
+        locs = list(locs)
+        sps = self.testModel.probable_splits(word)
+        self.assertEqual(sps, locs)
