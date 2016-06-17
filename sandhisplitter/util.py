@@ -21,6 +21,13 @@ def extract(line):
     return (word, splits, locs)
 
 
+def compress(word, splits, locs):
+    split_string = '+'.join(splits)
+    loc_string = ','.join(map(str, locs))
+    final = "%s=%s|%s" % (word, split_string, loc_string)
+    return final
+
+
 def split_word_at_locations(word, locs):
     start = 0
     plain_splits = []

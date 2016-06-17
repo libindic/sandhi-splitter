@@ -8,18 +8,6 @@ class TestTrie(TestCase):
         super(TestTrie, self).setUp()
         self.testTrie = Trie()
 
-    def dfs(self, node, prefix, output):
-        if node == self.testTrie.end:
-            output.append(prefix)
-        for key in node.next.keys():
-            prefix2 = prefix + node.next[key].character
-            self.dfs(node.next[key], prefix2, output)
-
-    def all_words(self):
-        output = []
-        self.dfs(self.testTrie.root, '', output)
-        return output
-
     def contains_substr(self, node, word):
         if not word:
             return '$' in node.next.keys()
