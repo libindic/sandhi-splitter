@@ -1,23 +1,15 @@
 CHANGES
 =======
 
-* Update Testing.md
-* Test improved
-* Update Testing.md
-* Added docs, Improved tests
+* Modified console scripts for py2.7 compatibility Adjusted Training.md. Removed split and unsplit, no to one results file
+* Documentation and Model Testing Added script to benchmark the model versus a given dataset. Documentation added. Added docs, Improved tests
 * Tests now using files
 * Fixed Makefile trailing whitespace, moved models into module
-* Improved coverage, added pragma for scripts
-* Improved coverage, wrote more tests
+* More tests Tests added and improved coverage
 * Changed log to output
 * Old tests removed. PEP-8 passing for now, debug messages removed
-* Restructure, Improvements Organized into a neater hierarchy. Cmd arguments for test and train supported
-* More experiments
-* Waiting optimizations
-* Major changes, split point identification working
-* Improvements
-* Stash
-* Model separated, better suited for testing. Added tox
+* Restructure and console scripts Hierarchy restructure. Console scripts added to train and test Waiting optimizations
+* tox + Split Point Identification Added tox for automated testing, Split point identification working
 * Fixed travis build fail. PEP-8 corrections, py2.7 support
 * Fix failing build, added python2.7
 * Update README.md
