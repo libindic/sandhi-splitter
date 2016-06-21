@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from __future__ import absolute_import, division
+from __future__ import print_function, unicode_literals
 from sandhisplitter.util import vowelT
 from sandhisplitter.util import split_word_at_locations
 

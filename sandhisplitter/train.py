@@ -5,6 +5,7 @@ import json
 import argparse
 from sandhisplitter.model import Model
 from sandhisplitter.util import extract
+from io import open
 
 if __name__ == '__main__':  # pragma: no cover
     parser = argparse.ArgumentParser(description="Train a model")
@@ -12,9 +13,9 @@ if __name__ == '__main__':  # pragma: no cover
         ["-k", "--depth", "depth of the trie", int, "depth"],
         ["-s", "--skip", "initial skip", int, "skip"],
         ["-i", "--trainfile", "path to training file",
-            argparse.FileType("r"), "trainfile"],
+            str, "trainfile"],
         ["-o", "--outputfile", "path to store model",
-            argparse.FileType("w"), "modelfile"],
+            str, "modelfile"],
     ]
 
     for arg in arguments:
@@ -23,7 +24,7 @@ if __name__ == '__main__':  # pragma: no cover
                             required=True, dest=dest)
 
     args = parser.parse_args()
-    data = args.trainfile
+    data = open(args.trainfile, "r", encoding="utf-8")
     line_number = 0
     M = Model(depth=args.depth, skip=args.skip)
     try:
@@ -36,4 +37,5 @@ if __name__ == '__main__':  # pragma: no cover
         raise
 
     exported = M.serialize()
-    json.dump(exported, args.modelfile)
+    outputfile = open(args.modelfile, "w", encoding="utf-8")
+    json.dump(exported, outputfile)

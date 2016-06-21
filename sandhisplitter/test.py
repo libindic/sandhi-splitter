@@ -1,3 +1,6 @@
+from __future__ import absolute_import, division
+from __future__ import print_function, unicode_literals
+from io import open
 import argparse
 import json
 from sandhisplitter.model import Model
@@ -37,39 +40,42 @@ if __name__ == '__main__':  # pragma: no cover
     parser = argparse.ArgumentParser(description="Test a model")
     arguments = [
         ["-m", "--modelfile", "path to model file",
-            argparse.FileType("r"), "modelfile"],
+            str, "modelfile"],
         ["-t", "--testfile", "path to test file",
-            argparse.FileType("r"), "testfile"],
-        ["-u", "--unsplit", "path to store unsplit data",
-            argparse.FileType("w"), "unsplit"],
-        ["-s", "--split", "path to store split data",
-            argparse.FileType("w"), "split"],
+            str, "testfile"],
+        ["-u", "--output", "folder to store output",
+            str, "output"],
     ]
     for arg in arguments:
         unix, gnu, desc, typename, dest = arg
         parser.add_argument(unix, gnu, help=desc, type=typename,
                             required=True, dest=dest)
     args = parser.parse_args()
-    model = json.load(args.modelfile)
+    modelfile = open(args.modelfile, "r", encoding="utf-8")
+    model = json.load(modelfile)
     M = Model(model=model)
     P = PostProcessor()
-    output = args.split
-    no_splits = args.unsplit
+    output = open(args.output, "w", encoding="utf-8")
     stats = (0, 0, 0, 0)
-    for line in args.testfile:
+    linenumber = 0
+    testfile = open(args.testfile, "r", encoding="utf-8")
+    for line in testfile:
+        linenumber += 1
         line = line.strip()
-        word, desired_splits, desired_locs = extract(line)
+        # print(line)
+        try:
+            word, desired_splits, desired_locs = extract(line)
+        except ValueError:
+            print("Error in line %d" % linenumber)
         sps = M.probable_splits(word)
         splits = P.split(line, sps)
         outstring = compress(word, splits, sps) + '\n'
         split_metrics = split_error(desired_splits, splits)
         location_metrics = location_error(desired_locs, sps, len(word))
         stats = map(add, stats, location_metrics)
-        if sps:
-            output.write(outstring)
-        else:
-            no_splits.write(outstring)
+        output.write(outstring)
     results = measures(stats)
     print("Split point identification stats:")
-    for key in results.keys():
+    skeys = sorted(results.keys())
+    for key in skeys:
         print('  ', key, ':', results[key])

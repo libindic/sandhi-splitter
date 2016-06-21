@@ -2,6 +2,8 @@ CHANGES
 =======
 
 * Update Testing.md
+* Test improved
+* Update Testing.md
 * Added docs, Improved tests
 * Tests now using files
 * Fixed Makefile trailing whitespace, moved models into module
