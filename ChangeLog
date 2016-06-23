@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* Updated changelog to reflect rebase
 * Modified console scripts for py2.7 compatibility Adjusted Training.md. Removed split and unsplit, no to one results file
 * Documentation and Model Testing Added script to benchmark the model versus a given dataset. Documentation added. Added docs, Improved tests
 * Tests now using files

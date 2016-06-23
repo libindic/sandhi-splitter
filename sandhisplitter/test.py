@@ -3,9 +3,9 @@ from __future__ import print_function, unicode_literals
 from io import open
 import argparse
 import json
-from sandhisplitter.model import Model
-from sandhisplitter.postprocessor import PostProcessor
 from sandhisplitter.util import extract, compress
+from sandhisplitter.splitter import Splitter
+from sandhisplitter.postprocessor import PostProcessor
 from operator import add
 
 
@@ -53,7 +53,7 @@ if __name__ == '__main__':  # pragma: no cover
     args = parser.parse_args()
     modelfile = open(args.modelfile, "r", encoding="utf-8")
     model = json.load(modelfile)
-    M = Model(model=model)
+    S = Splitter(model)
     P = PostProcessor()
     output = open(args.output, "w", encoding="utf-8")
     stats = (0, 0, 0, 0)
@@ -67,8 +67,8 @@ if __name__ == '__main__':  # pragma: no cover
             word, desired_splits, desired_locs = extract(line)
         except ValueError:
             print("Error in line %d" % linenumber)
-        sps = M.probable_splits(word)
-        splits = P.split(line, sps)
+        sps = S.splits(word)
+        splits = P.split(word, sps)
         outstring = compress(word, splits, sps) + '\n'
         split_metrics = split_error(desired_splits, splits)
         location_metrics = location_error(desired_locs, sps, len(word))

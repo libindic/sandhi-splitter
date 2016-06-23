@@ -7,5 +7,5 @@ class Splitter:
     def __init__(self, model):
         self.M = Model(model=model)
 
-    def split(self, word, locations):
-        return self.M.probable_splits(word, locations)
+    def splits(self, word):
+        return self.M.probable_splits(word)
