@@ -9,15 +9,16 @@ from sandhisplitter.postprocessor import PostProcessor
 from operator import add
 
 
-def split_error(desired, obtained):
-    pass
-
-
 def location_error(desired, obtained, length):
-    # Set difference(A, B) = A - B
-    # Set intersection(A, B) = A & B
+    # For more information, refer
+    # https://en.wikipedia.org/wiki/Precision_and_recall
+
+    # Get the desired lists as sets
     ds, os = map(set, [desired, obtained])
     u = set(range(1, length-1))
+
+    # Set difference(A, B) = A - B
+    # Set intersection(A, B) = A & B
     true_positives = ds & os
     true_negatives = (u - ds) & (u - os)
     false_positives = os - ds
@@ -28,6 +29,10 @@ def location_error(desired, obtained, length):
 
 
 def measures(location_metric):
+    """
+    Gets a location metric vector.
+    Returns precision, recall, accuracy, true negative rate
+    """
     tp, tn, fp, fn = map(float, location_metric)
     result = {}
     result["Precision"] = tp/(tp+fp)
@@ -36,7 +41,9 @@ def measures(location_metric):
     result["True Negative Rate"] = tn/(tn+fp)
     return result
 
-if __name__ == '__main__':  # pragma: no cover
+
+def main():
+    # if __name__ == '__main__':  # pragma: no cover
     parser = argparse.ArgumentParser(description="Test a model")
     arguments = [
         ["-m", "--modelfile", "path to model file",
@@ -51,10 +58,11 @@ if __name__ == '__main__':  # pragma: no cover
         parser.add_argument(unix, gnu, help=desc, type=typename,
                             required=True, dest=dest)
     args = parser.parse_args()
+    # Load data into the model
     modelfile = open(args.modelfile, "r", encoding="utf-8")
     model = json.load(modelfile)
-    S = Splitter(model)
-    P = PostProcessor()
+    splitter = Splitter(model)
+    postprocessor = PostProcessor()
     output = open(args.output, "w", encoding="utf-8")
     stats = (0, 0, 0, 0)
     linenumber = 0
@@ -67,13 +75,16 @@ if __name__ == '__main__':  # pragma: no cover
             word, desired_splits, desired_locs = extract(line)
         except ValueError:
             print("Error in line %d" % linenumber)
-        sps = S.splits(word)
-        splits = P.split(word, sps)
+        sps = splitter.splits(word)
+        splits = postprocessor.split(word, sps)
         outstring = compress(word, splits, sps) + '\n'
-        split_metrics = split_error(desired_splits, splits)
+        # split_metrics = split_error(desired_splits, splits)
+        # Check what matches and not matches
         location_metrics = location_error(desired_locs, sps, len(word))
         stats = map(add, stats, location_metrics)
         output.write(outstring)
+
+    # Get the aggregate measures
     results = measures(stats)
     print("Split point identification stats:")
     skeys = sorted(results.keys())

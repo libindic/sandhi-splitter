@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* Wrapper - Integration of Splitter, PostProcessor `__init__.py` now contains the function exposed as a python module
 * Updated changelog to reflect rebase
 * Modified console scripts for py2.7 compatibility Adjusted Training.md. Removed split and unsplit, no to one results file
 * Documentation and Model Testing Added script to benchmark the model versus a given dataset. Documentation added. Added docs, Improved tests

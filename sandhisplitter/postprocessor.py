@@ -6,20 +6,27 @@ from sandhisplitter.util import split_word_at_locations
 
 
 class PostProcessor:
-    def __init__(self):
-        pass
-
     def transform(self, first, second):
-        # Check if first.last is ya or va
+        """
+        Applies morphophonemic changes, rule based for now
+        Transforms Wx, yZ -> Wx' + y'Z.
+        """
+
+        # ya additions
         if(first[-1] == u'യ' and second[0] in vowelT.keys()):
             first = first[:-1]
             second = vowelT[second[0]] + second[1:]
+        # ma - am
         elif(first[-1] == u'മ' and second[0] in vowelT.keys()):
             first = first[:-1] + u'ം'
             second = vowelT[second[0]] + second[1:]
+
+        # kkV = kk~ + char(V)
         elif(second[0] in vowelT):
             first = first + u'്'
             second = vowelT[second[0]] + second[1:]
+
+        # Doubling
         if(len(second) >= 3):
             x, y, z = second[:3]
             if(x == z and y == u'്'):
@@ -27,6 +34,10 @@ class PostProcessor:
         return (first, second)
 
     def split(self, word, locations):
+        """
+        Applies transform to wordsat each
+        location provided in locations
+        """
         splits = split_word_at_locations(word, locations)
         word_count = len(splits)
         for i in range(word_count-1):
