@@ -1,6 +1,34 @@
 CHANGES
 =======
 
+* Wrapper - Integration of Splitter, PostProcessor `__init__.py` now contains the function exposed as a python module
+* Updated changelog to reflect rebase
+* Modified console scripts for py2.7 compatibility Adjusted Training.md. Removed split and unsplit, no to one results file
+* Documentation and Model Testing Added script to benchmark the model versus a given dataset. Documentation added. Added docs, Improved tests
+* Tests now using files
+* Fixed Makefile trailing whitespace, moved models into module
+* More tests Tests added and improved coverage
+* Changed log to output
+* Old tests removed. PEP-8 passing for now, debug messages removed
+* Restructure and console scripts Hierarchy restructure. Console scripts added to train and test Waiting optimizations
+* tox + Split Point Identification Added tox for automated testing, Split point identification working
+* Fixed travis build fail. PEP-8 corrections, py2.7 support
+* Fix failing build, added python2.7
+* Update README.md
+* fix script of .travis.yml
+* Fix my email Id
+* Fix travis build configuration
+* Add travis and coverall badges
+* Wrap README.md to 80 characters
+* Ignore unwanted test files
+* Add testrepository configuration
+* Add test-requirements.txt
+* Package name for now is sandhisplitter
+* Cleaned up setup.py
+* Fix the import statement
+* Fix the requirements.txt
+* Fix the test command and add flake8 check
+* Travis enabled. Travis added
 * Sandhi Splitter now a module. Codes PEP-8 compliant
 * pbr + testtools working now, added Makefile
 * Tests, pbr Added Tests for first module. Rebased many commits onto a single one

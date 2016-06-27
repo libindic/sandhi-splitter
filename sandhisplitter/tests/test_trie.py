@@ -8,24 +8,6 @@ class TestTrie(TestCase):
         super(TestTrie, self).setUp()
         self.testTrie = Trie()
 
-    def dfs(self, node, prefix, output):
-        if node == self.testTrie.end:
-            output.append(prefix)
-        for key in node.next.keys():
-            prefix2 = prefix + node.next[key].character
-            self.dfs(node.next[key], prefix2, output)
-
-    def all_words(self):
-        output = []
-        self.dfs(self.testTrie.root, '', output)
-        return output
-
-    def debug(self):
-        output = []
-        self.dfs(self.testTrie.root, '', output)
-        for word in output:
-            print(word)
-
     def contains_substr(self, node, word):
         if not word:
             return '$' in node.next.keys()
@@ -37,13 +19,35 @@ class TestTrie(TestCase):
     def contains(self, word):
         return self.contains_substr(self.testTrie.root, word)
 
-    def test_add_word(self):
-        self.testTrie.add_word('hello')
-        self.assertEqual(self.contains('hello'), True)
-        self.assertEqual(self.contains('hell'), False)
-        self.assertEqual(len(self.all_words()), 1)
-        self.testTrie.add_word('temporary')
-        self.assertEqual(len(self.all_words()), 2)
-        self.testTrie.add_word('hell')
-        self.assertEqual(len(self.all_words()), 3)
-        self.assertEqual(self.contains('hell'), True)
+    def test_word(self):
+        words = ["hello", "what", "hell", "h", "this"]
+        for word in words:
+            self.testTrie.add_word(word, False)
+        for word in words:
+            self.assertEqual(self.contains(word), True)
+
+    def test_export_and_load(self):
+        words = ["hello", "what", "hell", "h", "this"]
+        for word in words:
+            self.testTrie.add_word(word, False)
+        m = self.testTrie.serialize()
+        self.testTrie.load(m)
+        for word in words:
+            self.assertEqual(self.contains(word), True)
+
+    def test_smoothed_psp(self):
+        words = ["hello", "what", "hell", "h", "this"]
+        for word in words:
+            self.testTrie.add_word(word, False)
+        for i in range(6):
+            for word in words:
+                self.assertEqual(self.testTrie.smoothed_P_sp(word, i), 0.0)
+        for word in words:
+            self.testTrie.add_word(word, True)
+        for i in range(6):
+            for word in words:
+                if len(word) <= i:
+                    self.assertEqual(self.testTrie.smoothed_P_sp(word, i), 0.0)
+                else:
+                    self.assertEqual(self.testTrie.smoothed_P_sp(word, i), 0.5)
+        self.assertEqual(self.testTrie.smoothed_P_sp("hi", 0), 0.5)

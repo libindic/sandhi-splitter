@@ -10,6 +10,24 @@ although codes used are mostly language agnostic.
 
 # Training
 
+Training is done using the script `sandhisplitter/train.py`
+To test the code, do the following
+``` bash
+	git clone https://github.com/libindic/sandhi-splitter.git
+    cd sandhi-splitter
+    virtualenv env --python=/usr/bin/python3
+    . env/bin/activate
+    python setup.py install
+```
+
+After installation, with necessary arguments, use
+```bash
+    python sandhisplitter/train.py [args]
+    python sandhisplitter/test.py [args]
+
+```
+Help is provided in the console.
+
 # Using Module
 
 1. First clone the repository
