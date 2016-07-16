@@ -34,4 +34,4 @@ class Sandhisplitter:
 
 
 def getInstance():
-    return Wrapper()
+    return Sandhisplitter()
