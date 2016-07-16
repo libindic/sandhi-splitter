@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division
 from __future__ import print_function, unicode_literals
-from util import invVT
+from sandhisplitter.util import invVT
 
 class Joiner:  
     # ha, this needs to be substituted, can't capture these
