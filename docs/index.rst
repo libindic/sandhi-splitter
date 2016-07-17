@@ -64,10 +64,9 @@ Training
 							path to store model
 
 
+To understand the parameters ``DEPTH`` and ``SKIP``, please refer to the paper this is based on: `Sandhi Splitter for Malayalam <http://ltrc.iiit.ac.in/icon2015/icon2014_proceedings/papers/File71-p164.pdf>`_.
 
 ``TRAINFILE`` should contain data in the following format:
-
-To understand the parameters ``DEPTH`` and ``SKIP``, please refer to the paper this is based on: `Sandhi Splitter for Malayalam <http://ltrc.iiit.ac.in/icon2015/icon2014_proceedings/papers/File71-p164.pdf>`_.
 
 .. code-block:: none
 
