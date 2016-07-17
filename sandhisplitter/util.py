@@ -55,4 +55,4 @@ vowelT = {
     u'ൗ': u'ഔ'
 }
 
-invVT = {vowelT[key]:key for key in vowelT.keys()}
+invVT = {vowelT[key]: key for key in vowelT.keys()}

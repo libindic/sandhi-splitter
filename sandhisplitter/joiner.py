@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import, division
 from __future__ import print_function, unicode_literals
 from sandhisplitter.util import invVT
 
-class Joiner:  
+
+class Joiner:
     # ha, this needs to be substituted, can't capture these
     # all based on rules.
     # Another time, even space separated joins are gramatically
@@ -20,14 +22,13 @@ class Joiner:
                 second = invVT[second[0]]+second[1:]
             return first+second
 
-        
         # Guaranteed to work. :D
         return first+' '+second
 
     def join_words(self, words):
         concat = None
         for word in words:
-            if concat == None:
+            if concat is None:
                 concat = word
             else:
                 concat = self.join(concat, word)
