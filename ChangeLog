@@ -1,6 +1,17 @@
 CHANGES
 =======
 
+* Removed Testing.md and Training.md, index.rst updated
+* Pep8 fixes + python2-3 json fix
+* Adding documentation sources
+* No more output file in benchmark_model
+* Added combined
+* Initialized documentation using sphinx
+* fixed import util -> sandhisplitter.util
+* Fix getInstance to match rename
+* Added inverse VowelTransform, joiner
+* Renamed Wrapper to Sandhisplitter
+* Console entry points + Rename test.py
 * Wrapper - Integration of Splitter, PostProcessor `__init__.py` now contains the function exposed as a python module
 * Updated changelog to reflect rebase
 * Modified console scripts for py2.7 compatibility Adjusted Training.md. Removed split and unsplit, no to one results file
