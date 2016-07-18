@@ -56,3 +56,5 @@ vowelT = {
 }
 
 invVT = {vowelT[key]: key for key in vowelT.keys()}
+
+doubling = ['ക', 'പ']

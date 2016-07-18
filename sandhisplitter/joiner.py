@@ -9,21 +9,27 @@ class Joiner:
     # all based on rules.
     # Another time, even space separated joins are gramatically
     # valid.
+
     def join(self, first, second):
-        if(first[len(first)-1] == '്'):
+        if(first[len(first) - 1] == '്'):
             if(second[0] in invVT.keys()):
-                first = first[0:len(first)-1]
-                second = invVT[second[0]]+second[1:]
-                return first + second
+                first = first[0:len(first) - 1]
+                second = invVT[second[0]] + second[1:]
 
-        if(first[len(first)-1] == 'ം'):
-            first = first[0:len(first)-1] + 'മ'
+        elif(first[len(first) - 1] == 'ം'):
             if second[0] in invVT.keys():
-                second = invVT[second[0]]+second[1:]
-            return first+second
+                first = first[0:len(first) - 1] + 'മ'
+                second = invVT[second[0]] + second[1:]
 
-        # Guaranteed to work. :D
-        return first+' '+second
+        elif(second[0] in invVT.keys()):
+            first = first + 'യ'
+            second = invVT[second[0]] + second[1:]
+
+        # elif(second[0] in doubling):
+            # if(first[len(first)-1] )
+            # second = second[0]+'്'+second
+
+        return first + second
 
     def join_words(self, words):
         concat = None
