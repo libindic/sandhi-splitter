@@ -50,7 +50,7 @@ def main():
             str, "modelfile"],
         ["-t", "--testfile", "path to test file",
             str, "testfile"],
-        ["-u", "--output", "folder to store output",
+        ["-u", "--output", "file to store output",
             str, "output"],
     ]
     for arg in arguments:
