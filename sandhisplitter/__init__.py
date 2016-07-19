@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division
 from __future__ import print_function, unicode_literals
+from io import open
 import json
 from sandhisplitter.splitter import Splitter
 from sandhisplitter.postprocessor import PostProcessor
