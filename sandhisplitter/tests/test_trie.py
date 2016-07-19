@@ -51,3 +51,5 @@ class TestTrie(TestCase):
                 else:
                     self.assertEqual(self.testTrie.smoothed_P_sp(word, i), 0.5)
         self.assertEqual(self.testTrie.smoothed_P_sp("hi", 0), 0.5)
+
+        self.assertEqual(self.testTrie.smoothed_P_sp('', 0), 0.0)

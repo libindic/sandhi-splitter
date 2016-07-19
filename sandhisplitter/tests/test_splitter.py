@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 from io import open
+from sandhisplitter.splitter import Splitter
 from sandhisplitter.model import Model
 from testtools import TestCase
 from sandhisplitter.util import extract
 from pkg_resources import resource_filename
 
 
-class TestModel(TestCase):
+class TestSplitter(TestCase):
     def setUp(self):
-        super(TestModel, self).setUp()
+        super(TestSplitter, self).setUp()
         self.testModel = Model(depth=3, skip=1)
         testcases = resource_filename("sandhisplitter.tests",
                                       "resources/samples.txt")
@@ -25,15 +26,9 @@ class TestModel(TestCase):
             self.testModel.add_entry(word, splits, locs)
         m = self.testModel.serialize()
         self.testModel.load(m)
-        self.assertEqual(self.testModel.k, 3)
-        self.assertEqual(self.testModel.initial_skip, 1)
-        self.assertEqual(self.testModel.k, m["k"])
-        self.assertEqual(self.testModel.initial_skip, m["initial_skip"])
+        self.splitter = Splitter(m)
         # Test probale splits
         (word, splits, locs) = extract(firstline)
         locs = list(locs)
-        sps = self.testModel.probable_splits(word)
+        sps = self.splitter.splits(word)
         self.assertEqual(sps, locs)
-
-    def test_error(self):
-        self.assertRaises(ValueError, Model, "what")
