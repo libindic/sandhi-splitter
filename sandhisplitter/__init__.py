@@ -19,6 +19,9 @@ class Sandhisplitter:
         self.postprocessor = PostProcessor()
         self.joiner = Joiner()
 
+    def set_model(self, model):
+        self.splitter = Splitter(model=model)
+
     def split(self, word):
         ps = self.splitter.splits(word)
         split_words = self.postprocessor.split(word, ps)
