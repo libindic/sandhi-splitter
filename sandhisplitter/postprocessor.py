@@ -16,6 +16,7 @@ class PostProcessor:
         if(first[-1] == u'യ' and second[0] in vowelT.keys()):
             first = first[:-1]
             second = vowelT[second[0]] + second[1:]
+
         # ma - am
         elif(first[-1] == u'മ' and second[0] in vowelT.keys()):
             first = first[:-1] + u'ം'
@@ -29,8 +30,19 @@ class PostProcessor:
         # Doubling
         if(len(second) >= 3):
             x, y, z = second[:3]
+            double = False
             if(x == z and y == u'്'):
-                second = second[2:]
+                if(first[-1] == 'യ'):
+                    first = first[:-1]
+                elif(first[-1] == 'മ'):
+                    first = first[:-1] + u'ം'
+                else:
+                    double = True
+
+                if double:
+                    second = second[2:]
+                else:
+                    second = 'അ'+second
         return (first, second)
 
     def split(self, word, locations):
