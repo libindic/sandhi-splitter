@@ -25,13 +25,10 @@ system-wide using `sudo`, since module is still under development.
 
 # Training and Testing
 
-Training is done using the script `sandhisplitter/train.py`
-To test the code, do the following:
-
 After installation, with necessary arguments, use
 ```bash
-    sandhisplitter_train [args]
-    sandhisplitter_benchmark_model [args]
+    sandhisplitter_train [--help] [args]
+    sandhisplitter_benchmark_model [--help] [args]
 ```
 
 For more details, refer to [docs/index.rst](https://github.com/jerinphilip/sandhi-splitter/blob/master/docs/index.rst)
