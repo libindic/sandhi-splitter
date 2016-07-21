@@ -46,4 +46,5 @@ def main():
     # Serialize the model and export to file
     exported = model.serialize()
     output_file = open(args.modelfile, "w", encoding="utf-8")
-    json.dump(exported, output_file)
+    result = json.dumps(exported, ensure_ascii=False)
+    output_file.write(result)

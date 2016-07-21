@@ -54,3 +54,7 @@ vowelT = {
     u'ോ': u'ഓ',
     u'ൗ': u'ഔ'
 }
+
+invVT = {vowelT[key]: key for key in vowelT.keys()}
+
+doubling = ['ക', 'പ']
